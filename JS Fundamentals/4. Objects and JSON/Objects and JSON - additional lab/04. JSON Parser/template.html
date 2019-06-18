@@ -1,0 +1,69 @@
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="./style/template.css">
+    <title>JSON Parser</title>
+</head>
+
+<body>
+    <div id="container">
+        <nav id="navigation">
+            <div id="navigation-text">
+                <p id="lecture-name">Objects, JSON and DOM Events</p>
+                <p id="problem-name">04. JSON Parser</p>
+            </div>
+            <img id="logo-img" src="./images/SoftUniFoundation_Logo_OneLine_White@2x.png" alt="logo">
+        </nav>
+        <main>
+            <div id="exercise">
+                <form>
+                    <label>Input</label>
+                    <input type="text" id="input">
+                    <label>Command</label>
+                    <input type="text" id="command">
+                    <div class="center">
+                        <input type="submit" id="button" onclick="extractInfo()" value="Extract Info">
+                    </div>
+                </form>
+                <label>Result</label>
+                <textarea readonly rows="10" cols="50" id="result"></textarea>
+            </div>
+            <img id="softUni-person-img" src="./images/cw_2_New_Logo.png" alt="softUni-person">
+        </main>
+        <footer>
+            <p id="footer-text">Check your solution here: <span id="check-judge">Link to judge</span>
+            </p>
+        </footer>
+    </div>
+    <script>
+        document.getElementById("button").addEventListener("click", function (event) {
+            event.preventDefault()
+        });
+        function extractInfo() {
+            let resultStr = "";
+            let inputObj = JSON.parse(input.value);
+            let inputCommand = command.value.split(" ");
+            let objKey = inputCommand[inputCommand.length - 1];
+
+
+            if (inputCommand[0] === "typeof") {
+                if (inputObj.hasOwnProperty(objKey)) {
+                    resultStr = `Type: ${typeof objKey}`;
+                } else {
+                    resultStr = `No such item`;
+                }
+            } else if (inputCommand[0] === "value") {
+                if (inputObj.hasOwnProperty(objKey)) {
+                    resultStr = `Value: ${inputObj[objKey]}`;
+                } else {
+                    resultStr = `No such item`;
+                }
+            } else {
+                resultStr = "Invalid command";
+            }
+            document.getElementById("result").innerHTML = resultStr;
+        }
+    </script>
+</body>
+
+</html>
